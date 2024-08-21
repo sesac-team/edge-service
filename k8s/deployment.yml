@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: edge-service
-          image: edge-service
+          image: ghcr.io/gmdcjdakdcjd/edge-service:latest
           imagePullPolicy: IfNotPresent
           lifecycle:
             preStop:
