@@ -25,7 +25,8 @@ jobs:
       - name: Build, unit tests and integration tests
         run: |
           chmod +x gradlew
-          ./gradlew build
+          ./gradlew build --continue
+          ./gradlew test --continue --warning-mode all
       - name: Code vulnerability scanning
         uses: anchore/scan-action@v3
         id: scan
