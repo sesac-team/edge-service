@@ -95,15 +95,15 @@ spring:
           keycloak:
             issuer-uri: http://polar-keycloak:8080/realms/PolarBookshop
 
-resilience4j:
-  circuitbreaker:
-    configs:
-      default:
-        slidingWindowSize: 20
-        permittedNumberOfCallsInHalfOpenState: 5
-        failureRateThreshold: 50
-        waitDurationInOpenState: 15000
-  timelimiter:
-    configs:
-      default:
-        timeoutDuration: 5s
+#resilience4j:
+#  circuitbreaker:
+#    configs:
+#      default:
+#        slidingWindowSize: 20
+#        permittedNumberOfCallsInHalfOpenState: 5
+#        failureRateThreshold: 50
+#        waitDurationInOpenState: 15000
+#  timelimiter:
+#    configs:
+#      default:
+#        timeoutDuration: 5s
