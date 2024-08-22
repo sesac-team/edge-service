@@ -36,7 +36,7 @@ public class SecurityConfig {
 				.exceptionHandling(exceptionHandling -> exceptionHandling
 						.authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED))
 				)
-				.oauth2Login(Customizer.withDefaults())  // OAuth2 로그인 설정 (비활성화 가능)
+				.formLogin(Customizer.withDefaults())  // OAuth2 로그인 설정 (비활성화 가능)
 				.logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository)))  // 로그아웃 후 리디렉션
 				.csrf(csrf -> csrf.disable())  // CSRF 비활성화
 				.build();
