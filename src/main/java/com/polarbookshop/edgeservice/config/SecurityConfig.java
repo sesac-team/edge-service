@@ -15,9 +15,6 @@ import org.springframework.security.oauth2.client.web.server.WebSessionServerOAu
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.authentication.HttpStatusServerEntryPoint;
 import org.springframework.security.web.server.authentication.logout.ServerLogoutSuccessHandler;
-import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
-import org.springframework.security.web.server.csrf.CsrfToken;
-import org.springframework.security.web.server.csrf.XorServerCsrfTokenRequestAttributeHandler;
 import org.springframework.web.server.WebFilter;
 
 @Configuration(proxyBeanMethods = false)
@@ -32,17 +29,16 @@ public class SecurityConfig {
 	SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http, ReactiveClientRegistrationRepository clientRegistrationRepository) {
 		return http
 				.authorizeExchange(exchange -> exchange
-						.pathMatchers("/", "/*.css", "/*.js", "/favicon.ico").permitAll()
-						.pathMatchers(HttpMethod.GET, "/books/**").permitAll()
-						.anyExchange().authenticated()
+						.pathMatchers("/", "/*.css", "/*.js", "/favicon.ico").permitAll()  // 공개 경로 설정
+						.pathMatchers(HttpMethod.GET, "/books/**").permitAll()  // /books 경로는 모두에게 허용
+						.anyExchange().permitAll()  // 그 외 모든 경로도 인증 없이 허용
 				)
 				.exceptionHandling(exceptionHandling -> exceptionHandling
-						.authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED)))
-				.oauth2Login(Customizer.withDefaults())
-				.logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository)))
-				.csrf(csrf -> csrf
-						.csrfTokenRepository(CookieServerCsrfTokenRepository.withHttpOnlyFalse())
-						.csrfTokenRequestHandler(new XorServerCsrfTokenRequestAttributeHandler()::handle))
+						.authenticationEntryPoint(new HttpStatusServerEntryPoint(HttpStatus.UNAUTHORIZED))
+				)
+				.oauth2Login(Customizer.withDefaults())  // OAuth2 로그인 설정 (비활성화 가능)
+				.logout(logout -> logout.logoutSuccessHandler(oidcLogoutSuccessHandler(clientRegistrationRepository)))  // 로그아웃 후 리디렉션
+				.csrf(csrf -> csrf.disable())  // CSRF 비활성화
 				.build();
 	}
 
@@ -52,16 +48,5 @@ public class SecurityConfig {
 		return oidcLogoutSuccessHandler;
 	}
 
-	@Bean
-	WebFilter csrfWebFilter() {
-		// Required because of https://github.com/spring-projects/spring-security/issues/5766
-		return (exchange, chain) -> {
-			exchange.getResponse().beforeCommit(() -> Mono.defer(() -> {
-				Mono<CsrfToken> csrfToken = exchange.getAttribute(CsrfToken.class.getName());
-				return csrfToken != null ? csrfToken.then() : Mono.empty();
-			}));
-			return chain.filter(exchange);
-		};
-	}
-
+	// CSRF WebFilter 삭제 (더 이상 필요하지 않음)
 }
