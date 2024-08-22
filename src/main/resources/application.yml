@@ -54,8 +54,9 @@ spring:
       routes:
         - id: spa-route
           uri: ${SPA_URL:http://polar-ui:9004}
-#          predicates:
-#            - Path=/,/*.css,/*.js,/favicon.ico
+          predicates:
+            - Path=/
+            #- ,/*.css,/*.js,/favicon.ico
         - id: catalog-route
           uri: ${CATALOG_SERVICE_URL:http://catalog-service:9001}/books
           predicates:
