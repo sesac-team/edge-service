@@ -19,7 +19,7 @@ import org.springframework.web.server.WebFilter;
 
 @Configuration(proxyBeanMethods = false)
 public class SecurityConfig {
-
+//
 	@Bean
 	ServerOAuth2AuthorizedClientRepository authorizedClientRepository() {
 		return new WebSessionServerOAuth2AuthorizedClientRepository();
