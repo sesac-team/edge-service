@@ -1,5 +1,5 @@
-//package com.polarbookshop.edgeservice.config;
-//
+package com.polarbookshop.edgeservice.config;
+
 //import reactor.core.publisher.Mono;
 //
 //import org.springframework.context.annotation.Bean;
