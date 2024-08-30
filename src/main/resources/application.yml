@@ -33,7 +33,7 @@ spring:
           max-life-time: 60s
       default-filters:
         - SaveSession
-        # - TokenRelay // 보안 인증이 제거되었으므로 TokenRelay 필터 제거
+        - TokenRelay
         - name: RequestRateLimiter
           args:
             redis-rate-limiter:
@@ -83,18 +83,17 @@ spring:
     timeout: 10m
     redis:
       namespace: polar:edge
-  # security.oauth2.client 섹션 제거
-  # security:
-  #   oauth2:
-  #     client:
-  #       registration:
-  #         keycloak:
-  #           client-id: edge-service
-  #           client-secret: polar-keycloak-secret
-  #           scope: openid,roles
-  #       provider:
-  #         keycloak:
-  #           issuer-uri: http://polar-keycloak:80/realms/PolarBookshop
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: edge-service
+            client-secret: polar-keycloak-secret
+            scope: openid,roles
+        provider:
+          keycloak:
+            issuer-uri: http://polar-keycloak:80/realms/PolarBookshop
 
 resilience4j:
   circuitbreaker:

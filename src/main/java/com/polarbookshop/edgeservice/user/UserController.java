@@ -1,22 +1,22 @@
 package com.polarbookshop.edgeservice.user;
 
 import reactor.core.publisher.Mono;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;  // List를 임포트
 
 @RestController
 public class UserController {
 
 	@GetMapping("user")
-	public Mono<User> getUser() {
-		// 인증이 제거되었으므로 기본 사용자 정보를 반환
+	public Mono<User> getUser(@AuthenticationPrincipal OidcUser oidcUser) {
 		var user = new User(
-				"defaultUser",
-				"Default",
-				"User",
-				List.of("ROLE_USER")  // 기본 역할 설정
+				oidcUser.getPreferredUsername(),
+				oidcUser.getGivenName(),
+				oidcUser.getFamilyName(),
+				oidcUser.getClaimAsStringList("roles")
 		);
 		return Mono.just(user);
 	}
