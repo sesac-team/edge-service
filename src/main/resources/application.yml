@@ -95,14 +95,14 @@ spring:
           keycloak:
             issuer-uri: http://adb036ff5c06344c0aec6be4b15350c8-386055155.ap-southeast-2.elb.amazonaws.com/realms/PolarBookshop
 #            issuer-uri: http://polar-keycloak:80/realms/PolarBookshop
-  # Zipkin 설정 추가
-  sleuth:
-    sampler:
-      probability: 1.0 # 모든 요청을 샘플링 (프로덕션 환경에서는 낮출 수 있음)
-  zipkin:
-    base-url: http://zipkin-service:80 # Zipkin 서버 URL
-    sender:
-      type: web # HTTP 방식으로 Zipkin에 전송
+#  # Zipkin 설정 추가
+#  sleuth:
+#    sampler:
+#      probability: 1.0 # 모든 요청을 샘플링 (프로덕션 환경에서는 낮출 수 있음)
+#  zipkin:
+#    base-url: http://zipkin-service:80 # Zipkin 서버 URL
+#    sender:
+#      type: web # HTTP 방식으로 Zipkin에 전송
 
 
 resilience4j:

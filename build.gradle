@@ -27,8 +27,8 @@ dependencies {
 	implementation 'org.springframework.session:spring-session-data-redis'
 
 	// Zipkin을 사용하기 위해 추가해야 할 의존성들
-	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
-	implementation 'org.springframework.cloud:spring-cloud-starter-zipkin'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-sleuth'
+//	implementation 'org.springframework.cloud:spring-cloud-starter-zipkin'
 
 	// Only on Apple Silicon. Why it's necessary: https://github.com/netty/netty/issues/11020
 	// runtimeOnly 'io.netty:netty-resolver-dns-native-macos:4.1.110.Final:osx-aarch_64'
@@ -43,12 +43,6 @@ dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
-}
-
-repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/milestone" }
-	maven { url "https://repo.spring.io/snapshot" }
 }
 
 
