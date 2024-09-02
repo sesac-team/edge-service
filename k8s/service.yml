@@ -4,11 +4,15 @@ metadata:
   name: edge-service
   labels:
     app: edge-service
+    version: edge-service
+    service: edge-service
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: edge-service
+    version: edge-service
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 9000
+    - protocol: TCP
+      port: 80
+      name: tcp
+      targetPort: 9000

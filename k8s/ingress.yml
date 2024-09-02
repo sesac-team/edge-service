@@ -3,14 +3,14 @@ kind: Ingress
 metadata:
   name: polar-ingress
 spec:
-  ingressClassName: nginx
   rules:
+    #    - host: ingressgateway
     - http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: edge-service
+                name: polar-keycloak
                 port:
                   number: 80

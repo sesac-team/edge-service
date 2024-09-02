@@ -4,15 +4,21 @@ metadata:
   name: edge-service
   labels:
     app: edge-service
+    version: edge-service
+    service: edge-service
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: edge-service
+      version: edge-service
+      service: edge-service
   template:
     metadata:
       labels:
         app: edge-service
+        version: edge-service
+        service: edge-service
     spec:
       containers:
         - name: edge-service
@@ -21,7 +27,7 @@ spec:
           lifecycle:
             preStop:
               exec:
-                command: [ "sh", "-c", "sleep 5" ]
+                command: ["sh", "-c", "sleep 5"]
           ports:
             - containerPort: 9000
           env:
@@ -36,4 +42,7 @@ spec:
             - name: SPRING_REDIS_HOST
               value: polar-redis
             - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
-              value: http://polar-keycloak/realms/PolarBookshop
+              value: http://ab1499ce512714319a3df12ec8b08c1c-941973363.ap-northeast-2.elb.amazonaws.com/realms/PolarBookshop
+
+            # - name: SPRING_SECURITY_OAUTH2_CLIENT_PROVIDER_KEYCLOAK_ISSUER_URI
+            #   value: http://polar-keycloak/realms/PolarBookshop
